@@ -1,3 +1,9 @@
-# chirp - a simple MEAN stack implementation of a twitter like app
+# Chirp - a simple MEAN stack implementation of a twitter like app.
 
-Sunny Singh
+# MongoDB
+# Express.js
+# Angular.js
+# Node.js
+
+* Sunny Singh
+Created from Microsoft Virtual Academy Demo
