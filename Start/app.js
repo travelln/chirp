@@ -6,10 +6,16 @@ var passport = require('passport');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var mongoose = require('mongoose');
+//connect to mongodb
+mongoose.connect("mongodb://localhost:27017/chirp-test");
+require('./models/models.js');
 var api = require('./routes/api');
 //We will uncomment this after implementing authenticate
 var authenticate = require('./routes/authenticate')(passport);
+var index = require('./routes/index');
+
+
 
 var app = express();
 
@@ -36,6 +42,9 @@ app.use(passport.session());
 var initPassport = require('./passport-init');
 initPassport(passport);
 
+
+//directs to the home page
+app.use('/' , index);
 app.use('/auth', authenticate);
 app.use('/api', api);
 
