@@ -8,6 +8,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 //connect to mongodb
+mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://localhost:27017/chirp-test");
 require('./models/models.js');
 var api = require('./routes/api');
@@ -37,7 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+//console.log("HELLO1");
 //// Initialize Passport
 var initPassport = require('./passport-init');
 initPassport(passport);
