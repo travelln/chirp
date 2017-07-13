@@ -6,26 +6,18 @@ var passport = require('passport');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
-//connect to mongodb
-mongoose.Promise = global.Promise;
-//mongoose.connect("mongodb://localhost:27017/chirp-test");
 
-//if(process.env.DEV_ENV){
-//	mongoose.connect('mongodb://localhost:27017/chirp-test');
-//}
-//else{
-//	mongoose.connect('mongodb://sunny:AvrTUlS5XyCF7gw4TlZTx748r8BzhZCIKiwGEwX231G19bP34bgd9pGR3aMfPL78cWTt9ACawTUa9pe53rwZbA==@sunny.documents.azure.com:10255/?ssl=true&replicaSet=globaldb');
-//}
-mongoose.connect('mongodb://travelln:dbuser@ds133290.mlab.com:33290/chirpuser');
+//connect to mongodb
+var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+mongoose.connect("mongodb://localhost:27017/chirp-test");
 
 require('./models/models.js');
 var api = require('./routes/api');
+
 //We will uncomment this after implementing authenticate
 var authenticate = require('./routes/authenticate')(passport);
 var index = require('./routes/index');
-
-
 
 var app = express();
 
@@ -34,12 +26,13 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')))
+
 app.use(logger('dev'));
 app.use(session({
   secret: 'keyboard cat'
 }));
-//
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -47,11 +40,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(passport.initialize());
 app.use(passport.session());
-//console.log("HELLO1");
+
 //// Initialize Passport
 var initPassport = require('./passport-init');
 initPassport(passport);
-
 
 //directs to the home page
 app.use('/' , index);
